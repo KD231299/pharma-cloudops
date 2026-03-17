@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pharma-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pharma
+  template:
+    metadata:
+      labels:
+        app: pharma
+    spec:
+      containers:
+      - name: pharma
+        image: kd231299/pharma-cloudops:latest
+        ports:
+        - containerPort: 80
