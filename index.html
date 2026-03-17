@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharma Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+let isLoggedIn = localStorage.getItem("isLoggedIn");
+if (!isLoggedIn) window.location.href = "login.html";
+</script>
+
+<header>
+    <div class="logo">💊 PharmaStore</div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+
+        <a href="cart.html" class="cart-link">
+            Cart 🛒 <span id="cartCount">0</span>
+        </a>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Online Pharmacy Store</h1>
+        <p>Buy medicines safely and easily from trusted sources</p>
+    </div>
+</section>
+
+<section class="banner">
+    <h1>Your Health, Our Priority</h1>
+</section>
+
+<section class="features">
+    <h2 class="section-title">Our Services</h2>
+
+    <div class="feature-grid">
+        <div class="feature-card">Medicine Inventory</div>
+        <div class="feature-card">Prescription Management</div>
+        <div class="feature-card">Billing & Reports</div>
+        <div class="feature-card">Secure System</div>
+    </div>
+</section>
+
+<section class="products">
+    <h2>Popular Medicines</h2>
+    <div class="grid" id="productGrid"></div>
+</section>
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <!-- Brand -->
+        <div class="footer-section">
+            <h3>💊 PharmaCloudOps</h3>
+            <p>Your trusted online pharmacy for safe and reliable medicines.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <p><a href="#">Home</a></p>
+            <p><a href="#">Products</a></p>
+            <p><a href="#">Cart</a></p>
+        </div>
+
+        <!-- Support -->
+        <div class="footer-section">
+            <h4>Customer Support</h4>
+            <p>Email: support@pharma.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>24/7 Assistance</p>
+        </div>
+
+        <!-- Address -->
+        <div class="footer-section">
+            <h4>Our Location</h4>
+            <p>Ahmedabad, Gujarat</p>
+            <p>India</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 PharmaCloudOps | All Rights Reserved
+    </div>
+
+</footer>
+
+<script src="products.js"></script>
+<script src="cart.js"></script>
+<script src="auth.js"></script>
+
+</body>
+</html>

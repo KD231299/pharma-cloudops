@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">💳 Checkout</div>
+</header>
+
+<div class="checkout-container">
+    <input type="text" placeholder="Full Name">
+    <input type="text" placeholder="Address">
+    <input type="text" placeholder="City">
+    <input type="text" placeholder="Card Number">
+    <input type="text" placeholder="Expiry Date">
+    <input type="text" placeholder="CVV">
+
+    <button onclick="placeOrder()">Pay Now</button>
+</div>
+
+<script>
+function placeOrder() {
+    alert("Payment Successful 🎉");
+    localStorage.removeItem("cart");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
