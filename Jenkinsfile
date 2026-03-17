@@ -8,13 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                echo "Cloning repository..."
-                git 'https://github.com/KD231299/pharma-cloudops.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image..."
@@ -24,21 +17,18 @@ pipeline {
 
         stage('Tag Image') {
             steps {
-                echo "Tagging image..."
                 sh 'docker tag $IMAGE $DOCKER_USER/$IMAGE:latest'
             }
         }
 
         stage('Push Image') {
             steps {
-                echo "Pushing to DockerHub..."
                 sh 'docker push $DOCKER_USER/$IMAGE:latest'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo "Deploying to K3s..."
                 sh '''
                 kubectl apply -f k8s/deployment.yaml
                 kubectl apply -f k8s/service.yaml
@@ -48,7 +38,6 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                echo "Checking pods..."
                 sh 'kubectl get pods'
                 sh 'kubectl get svc'
             }
