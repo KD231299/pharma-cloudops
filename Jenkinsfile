@@ -2,21 +2,21 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USER = "kd231299"
         IMAGE = "pharma-cloudops"
+        DOCKER_USER = "kd231299"
     }
 
     stages {
 
-        stage('Clone') {
+        stage('Clone Code') {
             steps {
                 git 'https://github.com/KD231299/pharma-cloudops.git'
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE .'
+                sh 'docker build -t $IMAGE ./app'
             }
         }
 
@@ -28,16 +28,16 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                sh '''
-                echo Kishan#23121999 | docker login -u $DOCKER_USER --password-stdin
-                docker push $DOCKER_USER/$IMAGE:latest
-                '''
+                sh 'docker push $DOCKER_USER/$IMAGE:latest'
             }
         }
 
-        stage('Deploy to K8s') {
+        stage('Deploy to K3s') {
             steps {
-                sh 'kubectl apply -f k8s/'
+                sh '''
+                kubectl apply -f k8s/deployment.yaml
+                kubectl apply -f k8s/service.yaml
+                '''
             }
         }
     }

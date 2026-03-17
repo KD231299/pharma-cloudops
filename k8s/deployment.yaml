@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pharma-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: pharma
@@ -13,7 +13,7 @@ spec:
         app: pharma
     spec:
       containers:
-      - name: pharma
+      - name: pharma-container
         image: kd231299/pharma-cloudops:latest
         ports:
         - containerPort: 80
