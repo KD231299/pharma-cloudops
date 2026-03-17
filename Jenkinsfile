@@ -10,13 +10,15 @@ pipeline {
 
         stage('Clone Code') {
             steps {
+                echo "Cloning..."
                 git 'https://github.com/KD231299/pharma-cloudops.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE ./app'
+                echo "Building image..."
+                sh 'docker build -t $IMAGE .'
             }
         }
 
@@ -34,6 +36,7 @@ pipeline {
 
         stage('Deploy to K3s') {
             steps {
+                echo "Deploying..."
                 sh '''
                 kubectl apply -f k8s/deployment.yaml
                 kubectl apply -f k8s/service.yaml
