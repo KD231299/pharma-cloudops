@@ -15,11 +15,20 @@ pipeline {
             }
         }
 
-        stage('Tag Image') {
-            steps {
-                sh 'docker tag $IMAGE $DOCKER_USER/$IMAGE:latest'
-            }
+        stage('Push Image') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'USER',
+            passwordVariable: 'PASS'
+        )]) {
+            sh '''
+            echo $PASS | docker login -u $USER --password-stdin
+            docker push $USER/pharma-cloudops:latest
+            '''
         }
+    }
+}
 
         stage('Push Image') {
             steps {
