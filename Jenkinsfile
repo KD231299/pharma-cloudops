@@ -11,28 +11,19 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image..."
-                sh 'docker build -t $IMAGE .'
+                sh "docker build -t ${IMAGE} ."
+            }
+        }
+
+        stage('Tag Image') {
+            steps {
+                sh "docker tag ${IMAGE} ${DOCKER_USER}/${IMAGE}:latest"
             }
         }
 
         stage('Push Image') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-creds',
-            usernameVariable: 'USER',
-            passwordVariable: 'PASS'
-        )]) {
-            sh '''
-            echo $PASS | docker login -u $USER --password-stdin
-            docker push $USER/pharma-cloudops:latest
-            '''
-        }
-    }
-}
-
-        stage('Push Image') {
             steps {
-                sh 'docker push $DOCKER_USER/$IMAGE:latest'
+                sh "docker push ${DOCKER_USER}/${IMAGE}:latest"
             }
         }
 
@@ -47,9 +38,10 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                sh 'kubectl get pods'
-                sh 'kubectl get svc'
+                sh "kubectl get pods"
+                sh "kubectl get svc"
             }
         }
+
     }
 }
