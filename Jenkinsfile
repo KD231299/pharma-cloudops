@@ -41,8 +41,7 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                sh 'kubectl get pods'
-                sh 'kubectl get svc'
+                sh 'kubectl rollout status deployment pharma-app --timeout=20s'
             }
         }
     }
