@@ -2,5 +2,4 @@
 .gitignore
 Dockerfile
 Jenkinsfile
-node_modules
 *.log

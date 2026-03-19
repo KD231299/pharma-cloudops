@@ -41,16 +41,24 @@ function login() {
 }
 
 // ================= LOGOUT =================
-function logout() {
+// function logout() {
 
-    // ❌ DO NOT CLEAR EVERYTHING
-    // localStorage.clear();
+//     // ❌ DO NOT CLEAR EVERYTHING
+//     // localStorage.clear();
 
-    // ✅ REMOVE ONLY SESSION
-    localStorage.removeItem("isLoggedIn");
+//     // ✅ REMOVE ONLY SESSION
+//     localStorage.removeItem("isLoggedIn");
 
-    // optional
-    localStorage.removeItem("cart");
+//     // optional
+//     localStorage.removeItem("cart");
 
-    window.location.href = "login.html";
+//     window.location.href = "login.html";
+// }
+function applyStyles() {
+    const element = document.getElementById("myParagraph");
+    if (element) {
+        element.style.color = "red";
+        element.style.fontSize = "20px";
+        element.style.fontWeight = "bold";
+    }
 }

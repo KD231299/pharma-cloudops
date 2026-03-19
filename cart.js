@@ -5,7 +5,19 @@ function addToCart(name, price, image) {
     updateCartCount();
     alert(name + " added to cart");
 }
+function logout() {
 
+    // ❌ DO NOT CLEAR EVERYTHING
+    // localStorage.clear();
+
+    // ✅ REMOVE ONLY SESSION
+    localStorage.removeItem("isLoggedIn");
+
+    // optional
+    localStorage.removeItem("cart");
+
+    window.location.href = "login.html";
+}
 function attachCartEvents() {
     document.querySelectorAll(".add-to-cart").forEach(btn => {
         btn.addEventListener("click", () => {
