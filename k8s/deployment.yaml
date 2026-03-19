@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: pharma-container
-        image: kd231299/pharma-cloudops:latest
+        image: kd231299/pharma-cloudops:v1
         ports:
         - containerPort: 80    
