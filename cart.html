@@ -12,8 +12,21 @@ let isLoggedIn = localStorage.getItem("isLoggedIn");
 if (!isLoggedIn) window.location.href = "login.html";
 </script>
 
+<!-- TOP BAR -->
+<div class="top-bar">
+    🛒 Secure Checkout | Trusted Medicines | Fast Delivery
+</div>
+
 <header>
+
     <div class="logo">💊 PharmaCloudOps</div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input type="text" placeholder="Search medicines...">
+        <button>🔍</button>
+    </div>
+
     <nav>
         <a href="index.html">Home</a>
 
@@ -23,18 +36,49 @@ if (!isLoggedIn) window.location.href = "login.html";
 
         <button class="logout-btn" onclick="logout()">Logout</button>
     </nav>
+
 </header>
 
-<section class="cart-container">
-    <h2>Your Cart</h2>
+<div class="cart-page">
 
-    <div id="cartItems"></div>
-    <h2 id="total"></h2>
+    <!-- LEFT -->
+    <div class="cart-left">
 
-    <a href="checkout.html">
-        <button class="checkout-btn">Checkout</button>
-    </a>
-</section>
+        <h1>Shopping Cart</h1>
+
+        <div id="cartItems"></div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="cart-summary">
+
+        <h2>Order Summary</h2>
+
+        <div class="summary-line">
+            <span>Items</span>
+            <span id="totalItems">0</span>
+        </div>
+
+        <div class="summary-line">
+            <span>Delivery</span>
+            <span>FREE</span>
+        </div>
+
+        <div class="summary-line total-line">
+            <span>Total</span>
+            <span id="total">₹0</span>
+        </div>
+
+        <a href="checkout.html">
+            <button class="checkout-btn">
+                Proceed To Checkout
+            </button>
+        </a>
+
+    </div>
+
+</div>
 
 <script src="cart.js"></script>
 <script src="auth.js"></script>

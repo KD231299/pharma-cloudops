@@ -55,33 +55,150 @@
     </div>
 
     <!-- RIGHT: SUMMARY -->
-    <div class="summary">
+        <div class="order-summary">
+
         <h2>Order Summary</h2>
-        <p>Total Items: <span id="totalItems">0</span></p>
-        <p>Total Price: ₹<span id="totalPrice">0</span></p>
+
+        <div class="summary-line">
+            <span>Items</span>
+            <span id="checkoutItems">0</span>
+        </div>
+
+        <div class="summary-line">
+            <span>Delivery</span>
+            <span>FREE</span>
+        </div>
+
+        <div class="summary-line total-line">
+            <span>Total</span>
+            <span id="checkoutTotal">₹0</span>
+        </div>
+
     </div>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="checkoutsummary.js"></script>
 <script>
+
 function placeOrder() {
+
     let method = document.querySelector('input[name="payment"]:checked').value;
 
+    const fullName = document.querySelector('input[placeholder="Full Name"]').value;
+    const address = document.querySelector('input[placeholder="Address"]').value;
+    const city = document.querySelector('input[placeholder="City"]').value;
+
+    if(!fullName || !address || !city) {
+        alert("Please fill all billing details");
+        return;
+    }
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let total = 0;
+
+    cart.forEach(item => {
+        const qty = item.quantity || 1;
+        total += item.price * qty;
+    });
+
+    // PAYMENT MESSAGE
     if(method === "card") {
         alert("Card Payment Successful 💳");
-    } else if(method === "upi") {
+    }
+    else if(method === "upi") {
         alert("UPI Payment Successful 📱");
-    } else {
+    }
+    else {
         alert("Order placed with Cash on Delivery 🚚");
     }
 
+    // GENERATE PDF
+    generateInvoice(fullName, address, city, cart, total, method);
+
+    // CLEAR CART
     localStorage.removeItem("cart");
-    window.location.href = "index.html";
 }
 
+
+// PDF GENERATOR
+function generateInvoice(name, address, city, cart, total, paymentMethod) {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    // HEADER
+    doc.setFontSize(24);
+    doc.setTextColor(10,124,255);
+    doc.text("PharmaCloudOps Invoice", 20, 20);
+
+    doc.setFontSize(12);
+    doc.setTextColor(0,0,0);
+
+    doc.text(`Customer: ${name}`, 20, 40);
+    doc.text(`Address: ${address}`, 20, 50);
+    doc.text(`City: ${city}`, 20, 60);
+    doc.text(`Payment Method: ${paymentMethod.toUpperCase()}`, 20, 70);
+    doc.text(`Order Date: ${new Date().toLocaleString()}`, 20, 80);
+
+    // TABLE HEADER
+    doc.setFillColor(10,124,255);
+    doc.rect(20, 95, 170, 10, 'F');
+
+    doc.setTextColor(255,255,255);
+    doc.text("Medicine", 25, 102);
+    doc.text("Qty", 110, 102);
+    doc.text("Price", 145, 102);
+
+    // TABLE CONTENT
+    let y = 115;
+
+    doc.setTextColor(0,0,0);
+
+    cart.forEach(item => {
+
+        const qty = item.quantity || 1;
+        const subtotal = item.price * qty;
+
+        doc.text(item.name, 25, y);
+        doc.text(String(qty), 112, y);
+        doc.text(`₹${subtotal}`, 145, y);
+
+        y += 12;
+    });
+
+    // TOTAL
+    doc.setFontSize(16);
+    doc.setTextColor(10,124,255);
+    doc.text(`Total Amount: ₹${total}`, 20, y + 15);
+
+    // FOOTER
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text("Thank you for shopping with PharmaCloudOps!", 20, y + 35);
+
+    // DOWNLOAD PDF
+    setTimeout(() => {
+    doc.save("PharmaCloudOps-Invoice.pdf");
+    }, 500);
+
+    // REDIRECT AFTER DOWNLOAD
+    setTimeout(() => {
+    localStorage.removeItem("cart");
+    window.location.href = "index.html";
+    }, 2000);
+}
+
+
 // SWITCH PAYMENT UI
+
 document.querySelectorAll('input[name="payment"]').forEach(el => {
+
     el.addEventListener("change", function() {
+
         document.getElementById("cardDetails").style.display =
             this.value === "card" ? "block" : "none";
 
@@ -90,13 +207,6 @@ document.querySelectorAll('input[name="payment"]').forEach(el => {
     });
 });
 
-// LOAD CART DATA
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-document.getElementById("totalItems").innerText = cart.length;
-
-let total = 0;
-cart.forEach(item => total += item.price || 100);
-document.getElementById("totalPrice").innerText = total;
 </script>
 
 </body>

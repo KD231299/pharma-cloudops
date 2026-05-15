@@ -13,25 +13,78 @@ let isLoggedIn = localStorage.getItem("isLoggedIn");
 if (!isLoggedIn) window.location.href = "login.html";
 </script>
 
+<!-- TOP BAR -->
+<div class="top-bar">
+    🚚 Free Delivery Above ₹499 | 24/7 Customer Support | Trusted Online Pharmacy
+</div>
+
 <header>
-    <div class="logo">💊 PharmaCloud</div>
+
+    <div class="logo">💊 PharmaCloudOps</div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+    <input 
+        type="text" 
+        id="searchInput"
+        placeholder="Search medicines..."
+        onkeyup="searchProducts()"
+    >
+    <button onclick="searchProducts()">🔍</button>
+    </div>
+
     <nav>
+        <span id="welcomeUser" class="welcome-user"></span>
         <a href="#">Home</a>
-        <a href="#">Products</a>
+        <a href="#products-section">Products</a>
 
         <a href="cart.html" class="cart-link">
             Cart 🛒 <span id="cartCount">0</span>
         </a>
-
+        
         <button class="logout-btn" onclick="logout()">Logout</button>
     </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
+
     <div class="hero-content">
+
         <h1>Online Pharmacy Store</h1>
-        <p>Buy medicines safely and easily from trusted sources</p>
+
+        <p>
+            Buy medicines safely and easily from trusted sources
+        </p>
+
+        <!-- NEW BUTTONS -->
+        <div class="hero-buttons">
+            <button class="shop-btn">Shop Now</button>
+            <button class="offer-btn">Today's Offers</button>
+        </div>
+
+        <!-- LIVE STATS -->
+        <div class="hero-stats">
+
+            <div class="stat-card">
+                <h3>10K+</h3>
+                <p>Happy Customers</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>500+</h3>
+                <p>Medicines Available</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>24/7</h3>
+                <p>Customer Support</p>
+            </div>
+
+        </div>
+
     </div>
+
 </section>
 
 <section class="banner">
@@ -49,7 +102,22 @@ if (!isLoggedIn) window.location.href = "login.html";
     </div>
 </section>
 
-<section class="products">
+<!-- OFFER SECTION -->
+<section class="offer-section">
+
+    <div class="offer-card">
+        <h2>🔥 Today's Offer</h2>
+        <p>Get up to 40% discount on healthcare products.</p>
+    </div>
+
+    <div class="offer-card">
+        <h2>🚑 Fast Delivery</h2>
+        <p>Same day medicine delivery available in your area.</p>
+    </div>
+
+</section>
+
+<section class="products" id="products-section">
     <h2>Popular Medicines</h2>
     <div class="grid" id="productGrid"></div>
 </section>
@@ -95,6 +163,8 @@ if (!isLoggedIn) window.location.href = "login.html";
 
 </footer>
 
+<script src="searchproduct.js"></script>
+<script src="greetings.js"></script>
 <script src="products.js"></script>
 <script src="cart.js"></script>
 <script src="auth.js"></script>

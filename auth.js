@@ -23,6 +23,7 @@ function signup() {
 
 // ================= LOGIN =================
 function login() {
+
     let email = document.getElementById("loginEmail").value;
     let pass = document.getElementById("loginPassword").value;
 
@@ -34,8 +35,15 @@ function login() {
         // ✅ SESSION CREATED
         localStorage.setItem("isLoggedIn", "true");
 
+        // ✅ SAVE USERNAME
+        let username = email.split("@")[0];
+
+        localStorage.setItem("loggedInUser", username);
+
         window.location.href = "index.html";
+
     } else {
+
         alert("Invalid credentials");
     }
 }
