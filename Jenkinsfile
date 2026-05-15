@@ -5,6 +5,7 @@ pipeline {
         IMAGE = "pharma-cloudops"
         DOCKER_USER = "kd231299"
         VERSION = "${BUILD_NUMBER}"
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
 
     stages {
