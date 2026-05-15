@@ -165,7 +165,7 @@ function generateInvoice(name, address, city, cart, total, paymentMethod) {
 
         doc.text(item.name, 25, y);
         doc.text(String(qty), 112, y);
-        doc.text(`₹${subtotal}`, 145, y);
+        doc.text(`RS. ${subtotal}`, 145, y);
 
         y += 12;
     });
@@ -173,7 +173,7 @@ function generateInvoice(name, address, city, cart, total, paymentMethod) {
     // TOTAL
     doc.setFontSize(16);
     doc.setTextColor(10,124,255);
-    doc.text(`Total Amount: ₹${total}`, 20, y + 15);
+    doc.text(`Total Amount: RS. ${total}`, 20, y + 15);
 
     // FOOTER
     doc.setFontSize(12);
