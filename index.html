@@ -59,8 +59,19 @@ if (!isLoggedIn) window.location.href = "login.html";
 
         <!-- NEW BUTTONS -->
         <div class="hero-buttons">
-            <button class="shop-btn">Shop Now</button>
-            <button class="offer-btn">Today's Offers</button>
+
+            <button 
+                class="shop-btn"
+                onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">
+                Shop Now
+            </button>
+
+            <button 
+                class="offer-btn"
+                onclick="document.querySelector('.offer-section').scrollIntoView({behavior:'smooth'})">
+                Today's Offers
+            </button>
+
         </div>
 
         <!-- LIVE STATS -->
