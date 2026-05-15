@@ -8,26 +8,95 @@
 <body>
 
 <header>
-    <div class="logo">💳 Checkout</div>
+    <div class="logo">💳 PharmaCloudOps Checkout</div>
 </header>
 
-<div class="checkout-container">
-    <input type="text" placeholder="Full Name">
-    <input type="text" placeholder="Address">
-    <input type="text" placeholder="City">
-    <input type="text" placeholder="Card Number">
-    <input type="text" placeholder="Expiry Date">
-    <input type="text" placeholder="CVV">
+<div class="checkout-wrapper">
 
-    <button onclick="placeOrder()">Pay Now</button>
+    <!-- LEFT: FORM -->
+    <div class="checkout-container">
+
+        <h2>Billing Details</h2>
+
+        <input type="text" placeholder="Full Name">
+        <input type="text" placeholder="Address">
+        <input type="text" placeholder="City">
+
+        <h2>Payment Method</h2>
+
+        <div class="payment-options">
+            <label>
+                <input type="radio" name="payment" value="card" checked> 💳 Card
+            </label>
+            <label>
+                <input type="radio" name="payment" value="upi"> 📱 UPI
+            </label>
+            <label>
+                <input type="radio" name="payment" value="cod"> 🚚 Cash on Delivery
+            </label>
+        </div>
+
+        <!-- CARD DETAILS -->
+        <div id="cardDetails">
+            <input type="text" placeholder="Card Number">
+            <div class="row">
+                <input type="text" placeholder="Expiry Date">
+                <input type="text" placeholder="CVV">
+            </div>
+        </div>
+
+        <!-- UPI -->
+        <div id="upiDetails" style="display:none;">
+            <input type="text" placeholder="Enter UPI ID">
+        </div>
+
+        <button onclick="placeOrder()">Pay Now</button>
+
+    </div>
+
+    <!-- RIGHT: SUMMARY -->
+    <div class="summary">
+        <h2>Order Summary</h2>
+        <p>Total Items: <span id="totalItems">0</span></p>
+        <p>Total Price: ₹<span id="totalPrice">0</span></p>
+    </div>
+
 </div>
 
 <script>
 function placeOrder() {
-    alert("Payment Successful 🎉");
+    let method = document.querySelector('input[name="payment"]:checked').value;
+
+    if(method === "card") {
+        alert("Card Payment Successful 💳");
+    } else if(method === "upi") {
+        alert("UPI Payment Successful 📱");
+    } else {
+        alert("Order placed with Cash on Delivery 🚚");
+    }
+
     localStorage.removeItem("cart");
     window.location.href = "index.html";
 }
+
+// SWITCH PAYMENT UI
+document.querySelectorAll('input[name="payment"]').forEach(el => {
+    el.addEventListener("change", function() {
+        document.getElementById("cardDetails").style.display =
+            this.value === "card" ? "block" : "none";
+
+        document.getElementById("upiDetails").style.display =
+            this.value === "upi" ? "block" : "none";
+    });
+});
+
+// LOAD CART DATA
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.getElementById("totalItems").innerText = cart.length;
+
+let total = 0;
+cart.forEach(item => total += item.price || 100);
+document.getElementById("totalPrice").innerText = total;
 </script>
 
 </body>
